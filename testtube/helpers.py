@@ -85,7 +85,7 @@ class Helper(object):
 
     def test(self):
         """Execute the configured command with appropriate arguments."""
-        return subprocess.call([self.command] + self.get_args()) == 0
+        return subprocess.call(self.get_command() + self.get_args()) == 0
 
     def get_args(self):
         """Generate argumnets for the test process."""
@@ -93,6 +93,12 @@ class Helper(object):
             return [Settings.SRC_DIR]
 
         return [self.changed]
+
+    def get_command(self):
+        """Return command coerced to a list."""
+        if isinstance(self.command, (list, tuple)):
+            return self.command
+        return [self.command]
 
     def __call__(self, changed, match):
         """Test a changed file with the configured command."""

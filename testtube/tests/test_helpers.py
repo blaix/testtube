@@ -5,6 +5,7 @@ from testtube.helpers import (
 
 
 class HelperTests(unittest.TestCase):
+    helper_command = None
     helper_conf = {}
     helper_class = Pep8
     subprocess_result = 0
@@ -31,8 +32,19 @@ class HelperTests(unittest.TestCase):
 
         self.result = None
 
+        if self.helper_command:
+            self.helper.command = self.helper_command
+
         if self.execute_test:
             self.result = self.helper('fake_path.py', self.fake_match_obj)
+
+
+class HelperWithMultiWordCommand(HelperTests):
+    helper_command = ['ls', '-a']
+
+    def test_invokes_the_multi_word_command(self):
+        self.subprocess.call.assert_called_once_with(
+            ['ls', '-a', 'fake_path.py'])
 
 
 class Pep8Helper(HelperTests):
