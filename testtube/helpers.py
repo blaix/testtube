@@ -85,9 +85,6 @@ class Helper(object):
 
     def test(self):
         """Execute the configured command with appropriate arguments."""
-        if not self.command:
-            return True
-
         return subprocess.call([self.command] + self.get_args()) == 0
 
     def get_args(self):

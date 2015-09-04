@@ -70,16 +70,6 @@ class Pep8HelperOnTestFailureWithFailFastEnabled(HelperTests):
             HardTestFailure, self.helper, 'fake_path.py', self.fake_match_obj)
 
 
-class Pep8HelperWithInvalidTestCommand(HelperTests):
-    helper_conf = {'command': None}
-
-    def test_doesnt_invoke_a_subprocess(self):
-        self.assertFalse(self.subprocess.call.called)
-
-    def test_passes(self):
-        self.assertTrue(self.result)
-
-
 class Pep8HelperConfiguredToCheckEntireSrcDir(HelperTests):
     helper_conf = {'all_files': True}
 
